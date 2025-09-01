@@ -1,4 +1,3 @@
-import {  HumanMessage,SystemMessage} from "@langchain/core/messages";
 import { ChatGoogleGenerativeAI} from "@langchain/google-genai";
 import { ChatPromptTemplate } from "@langchain/core/prompts"
 import dotenv from "dotenv"
@@ -39,12 +38,12 @@ const chatHistory : any= [];
 
 async function chat( user : string){
     const promptTemplate = await ChatPromptTemplate.fromMessages([
-    ["system",SYSTEM_TEMPLTE], ["human","{user_input}"], ["human","{chatHistory}"]
+    ["system",SYSTEM_TEMPLTE], ["user_input",user], ["chatHistory",chatHistory]
     ]);
     
     const promptInputValue = await promptTemplate.invoke({
         user_input:user,
-        chatHistory : JSON.stringify(chatHistory)
+        chatHistory : chatHistory
     });
 
     const response = await model.invoke(promptInputValue);

@@ -1,9 +1,11 @@
-import { ollama } from "./ollama.js";
+import { embeddingOllama } from "./ollama.js"
 
 export async function runEmbeddingModel(prompt:string){
-    const response = await ollama.embeddings({
+    console.log("Embedding Model ",prompt );
+    const embeddings = await embeddingOllama.embed({
         model : "nomic-embed-text",
-        prompt : prompt,
-    });
-    return response.embedding;
+        input : prompt
+    });    
+    console.log(embeddings)
+    return embeddings;
 }
